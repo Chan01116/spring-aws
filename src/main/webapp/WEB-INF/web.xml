@@ -6,12 +6,12 @@
 	<!-- The definition of the Root Spring Container shared by all Servlets and Filters -->
 	<context-param>
 		<param-name>contextConfigLocation</param-name>
-		<param-value>/WEB-INF/spring/root-context.xml</param-value>
+		<param-value>/WEB-INF/spring/root-context.xml</param-value><!-- 빈으로 설정 -->
 	</context-param>
 	
 	<!-- Creates the Spring Container shared by all Servlets and Filters -->
 	<listener>
-		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class><!-- 통신을 하는 프로그램은 감지기가 있음 -->
 	</listener>
 
 	<!-- Processes application requests -->
