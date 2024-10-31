@@ -4,7 +4,7 @@
  <HEAD>
   <TITLE> memberJoin </TITLE> 
   
-  <link href = "../css/style.css" type = "text/css" rel = "stylesheet">
+  <link href = "/resources/css/style.css" type = "text/css" rel = "stylesheet">
   <script src="https://code.jquery.com/jquery-latest.min.js"></script>  <!-- CDN(컨텐츠 딜리버리 네트워크)주소 -->
  <script type="text/javascript">
  

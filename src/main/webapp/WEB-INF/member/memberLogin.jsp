@@ -33,7 +33,7 @@
   
   
   div {
-  	background-image : url("../images/pexels-pixabay-210012.jpg");
+  	background-image : url("/resources/images/pexels-pixabay-210012.jpg");
 	margin: 0; /* 기본 여백 제거 */
     height: 100vh; /* 전체 높이를 화면에 맞게 설정 */
     background-size: cover; /* 배경 이미지를 요소 크기에 맞게 조절 */
