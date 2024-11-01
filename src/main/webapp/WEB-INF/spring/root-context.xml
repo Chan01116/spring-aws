@@ -21,7 +21,7 @@
 	<bean id = "db" class = "org.springframework.jdbc.datasource.DriverManagerDataSource">
 	
 	<property name="driverClassName" value = "com.mysql.cj.jdbc.Driver"/>
-	<property name="url" value = "jdbc:mysq://127.0.0.1:3306/aws0822?useSSL=false&amp;serverTimezone=UTC&amp;allowPublicKeyRetrieval=true"/>
+	<property name="url" value="jdbc:mysql://127.0.0.1:3306/aws0822?useSSL=false&amp;serverTimezone=UTC&amp;allowPublicKeyRetrieval=true"/>
 	<property name="username" value = "root"/>
 	<property name="password" value ="1234"/>
 	
@@ -38,7 +38,9 @@
 	
 	
 	<bean id = "sqlSession" class = "org.mybatis.spring.SqlSessionTemplate">
-	<constructor-arg name = "sqlSessionFactory" ref ="sqlSessionFactory"/> <!-- 자바식으로 풀면    public class SqlSessionTemplate {  public SqlSessionTemplate(sqlSessionFactoryBean sqslSessionFactory){} }-->
+	<constructor-arg name = "sqlSessionFactory" ref ="sqlSessionFactory"/> <!-- 자바식으로 풀면    public class SqlSessionTemplate {  public SqlSessionTemplate(sqlSessionFactoryBean sqslSessionFactory){
+	    
+	    																														} }-->
 	
 	<!-- arg = 매게변수 -->
 	</bean>

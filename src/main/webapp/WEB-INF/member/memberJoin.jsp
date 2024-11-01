@@ -18,10 +18,6 @@
 		 alert("아이디를 입력해주세요");
 		 fm.memberid.focus();
 		 return;
-	 }else if(fm.btn.value == "N"){
-		 alert("아이디 중복체크를 해주세요.");
-		 fm.memberid.focus();
-		 return;
 	 }else if (fm.memberpwd.value == ""){
 		 alert("비밀번호를 입력해주세요");
 		 fm.memberpwd.focus();
@@ -60,6 +56,11 @@
 		 alert("취미를 1개이상 선택해주세요");
 		 return;
 	 }
+	 /* else if(fm.btn.value == "N"){
+	 alert("아이디 중복체크를 해주세요.");
+	 fm.memberid.focus();
+	 return;
+ } */
 	 //alert("이동할 정보등록할 차례입니다.");
 	 
 	 var ans = confirm("저장하시겠습니까?");
