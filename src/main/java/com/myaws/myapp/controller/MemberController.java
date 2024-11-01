@@ -16,16 +16,16 @@ public class MemberController {
 	
 	private static final Logger logger = LoggerFactory.getLogger(MemberController.class);
 	
-	@Autowired
-	private Test tt;
+	//@Autowired
+	//private Test tt;
 	
 	
 	@RequestMapping(value = "memberJoin.aws",method = RequestMethod.GET)
 	public String memberJoin() {
 		
-		logger.info("memberJoinµé¾î¿È");
+		//logger.info("memberJoinµé¾î¿È");
 		
-		logger.info("tt°ªÀº? : "+tt.test());
+		//logger.info("tt°ªÀº? : "+tt.test());
 		
 		return "WEB-INF/member/memberJoin";
 	}
