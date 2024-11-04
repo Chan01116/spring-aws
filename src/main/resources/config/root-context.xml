@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xmlns:task="http://www.springframework.org/schema/task"
+	xmlns:jee="http://www.springframework.org/schema/jee"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task-4.3.xsd
+		http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-4.3.xsd
+		http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd
+		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-4.3.xsd">
+	<!-- 스크마 형태로 이러한걸 쓰겠다 -->
+	<!-- Root Context: defines shared resources visible to all other web components -->
+	
+	
+	<!--  bean id ="tt" class = "com.myaws.myapp.service.Test" ></bean -->
+	
+	<bean id = "db" class = "org.springframework.jdbc.datasource.DriverManagerDataSource">
+	
+	<property name="driverClassName" value = "com.mysql.cj.jdbc.Driver"/>
+	<property name="url" value="jdbc:mysql://127.0.0.1:3306/aws0822?useSSL=false&amp;serverTimezone=UTC&amp;allowPublicKeyRetrieval=true"/>
+	<property name="username" value = "root"/>
+	<property name="password" value ="1234"/>
+	
+	</bean>
+	
+	
+	<bean id = "sqlSessionFactory" class ="org.mybatis.spring.SqlSessionFactoryBean">
+	<property name="dataSource" ref="db"/> <!-- db(이름)로 연결 -->
+	<property name="mapperLocations" value = "classpath:mappers/*.xml"  />
+	<property name="configLocation" value = "classpath:config/mybatis_config.xml"/>
+	
+	</bean>
+	
+	
+	
+	<bean id = "sqlSession" class = "org.mybatis.spring.SqlSessionTemplate">
+	<constructor-arg name = "sqlSessionFactory" ref ="sqlSessionFactory"/> <!-- 자바식으로 풀면    public class SqlSessionTemplate {  public SqlSessionTemplate(sqlSessionFactoryBean sqslSessionFactory){
+	    
+	    																														} }-->
+	
+	<!-- arg = 매게변수 -->
+	</bean>
+	
+	<!--  -->
+	
+	<context:component-scan base-package="com.myaws.myapp">
+	<context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+	
+	</context:component-scan>
+	
+		
+		
+</beans>
+
+
+
+

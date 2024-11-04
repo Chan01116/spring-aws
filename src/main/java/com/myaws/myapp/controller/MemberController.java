@@ -1,11 +1,15 @@
 package com.myaws.myapp.controller;
 
+import org.json.simple.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.myaws.myapp.domain.MemberVo;
 import com.myaws.myapp.service.MemberService;
@@ -24,13 +28,17 @@ public class MemberController {
 	
 	
 	@Autowired
-	MemberService memberService;
+	private MemberService memberService;
+	
+	@Autowired
+	private BCryptPasswordEncoder bCryptPasswordEncoder;
 	
 	@RequestMapping(value = "memberJoin.aws",method = RequestMethod.GET)
 	public String memberJoin() {
 		
 		//logger.info("memberJoin들어옴");
 		
+		logger.info("bCryptPasswordEncoder : "+bCryptPasswordEncoder);
 				
 		//logger.info("tt값은? : "+tt.test());
 		
@@ -42,6 +50,12 @@ public class MemberController {
 	public String memberJoinAction(MemberVo mv) {
 		
 		logger.info("memberJoinAction들어옴");
+		
+		
+		//비밀번호 암호화 기능
+		String memberpwd_enc = bCryptPasswordEncoder.encode(mv.getMemberpwd());
+		mv.setMemberpwd(memberpwd_enc);
+		
 		
 		int value = memberService.memberInsert(mv);
 		logger.info("value : "+value);
@@ -62,8 +76,6 @@ public class MemberController {
 	
 	
 	
-	
-	
 	@RequestMapping(value = "memberLogin.aws",method = RequestMethod.GET)
 	public String memberLogin() {
 		
@@ -71,5 +83,56 @@ public class MemberController {
 		
 		return "WEB-INF/member/memberLogin";
 	}
+	
+	@RequestMapping(value="memberLoginAction.aws",method=RequestMethod.POST)
+	public String memberLoginAction(@RequestParam("memberid") String memberid, @RequestParam("memberpwd") String memberpwd ) {		
+		
+		MemberVo mv = memberService.memberLoginCheck(memberid);
+		//저장된 비밀번호를 가져온다
+		
+		String path = "";
+		if (mv != null) {  //객체값이 없으면
+			String reservedPwd = mv.getMemberpwd(); 
+		
+			if(bCryptPasswordEncoder.matches(memberpwd, reservedPwd)) {
+				System.out.println("비밀번호 일치");
+				
+				path ="redirect:/";
+			}else {
+				
+				path = "redirect:/member/memberLogin.aws";
+			}		
+		}else {
+			
+			path = "redirect:/member/memberLogin.aws";
+		}		
+		//회원정보를  세션에 담는다
+				
+		return path;
+	}
+	   
+	
+	
+	
+	
+	
+	@ResponseBody
+	@RequestMapping(value = "memberIdCheck.aws",method = RequestMethod.POST)
+	public JSONObject memberIdCheck(@RequestParam("memberId") String memberId) {
+				    	
+    			
+		//MemberDao mv = new MemberDao();  //POJO(Plain Old Java Object)방식은 기존 자바의 객체생성
+    	int cnt = memberService.memberIdCheck(memberId);
+    	
+    	    	
+    	//PrintWriter out = response.getWriter();
+    	//out.println("{\"cnt\":\""+cnt+"\"}");
+		
+    	JSONObject obj = new JSONObject();  
+    	obj.put("cnt", cnt);
+    	
+		
+		return obj;
+	}	
 
 }
