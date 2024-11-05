@@ -164,10 +164,10 @@
 			<tr><th>비밀번호 확인</th><td><input type="password" name="memberpwd2" style = "width:100px" maxlength="30"></td></tr>
 			<tr><th id="name">이름</th><td><input type="text" name="membername" style = "width:100px" maxlength="30"></td></tr>
 			<tr><th>이메일</th><td><input type="email" name="memberemail" style = "width:100px" maxlength="30"></td></tr>
-			<tr><th>연락처</th><td><input type="number" name="memberephone" style = "width:100px" maxlength="30"></td></tr>
+			<tr><th>연락처</th><td><input type="number" name="memberphone" style = "width:100px" maxlength="30"></td></tr>
 		<tr><th>주소</th><td>
 		
-		<select name = "membereaddr" style = "width:100px">
+		<select name = "memberaddr" style = "width:100px">
 		
 			<option value = "서울">서울</option>
 			<option value = "대전" selected>대전</option>
@@ -182,7 +182,7 @@
 		<input type="radio" name="membergender" id = "select2" value = "F" checked><label for="select2">여성</label>
 		</td></tr>
 		
-		<tr><th>생년월일</th><td><input type="number" name="memberebirth" style = "width:100px" maxlength="8">예)20240920</td></tr>
+		<tr><th>생년월일</th><td><input type="number" name="memberbirth" style = "width:100px" maxlength="8">예)20240920</td></tr>
 		
 		<tr><th>취미</th><td>
 			<input type="checkbox" name="memberhobby" id = "check1" value = "야구"><label for="check1"></label>야구

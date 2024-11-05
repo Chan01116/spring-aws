@@ -7,7 +7,14 @@
 <title>스프링 학습하기</title>
 </head>
 <body>
+<%
+if(session.getAttribute("midx") != null){
+	out.print(session.getAttribute("memberName")+"로그아웃");
+}
+%>
+
 <a href ="<%=request.getContextPath() %>/member/memberJoin.aws">회원가입 페이지</a>
 <a href ="<%=request.getContextPath() %>/member/memberLogin.aws">회원로그인 페이지</a>
+<a href ="<%=request.getContextPath() %>/member/memberList.aws">회원 목록가기</a>
 </body>
 </html>

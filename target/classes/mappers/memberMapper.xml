@@ -7,8 +7,8 @@
 <mapper namespace="com.myaws.myapp.persistance.MemberMapper">
 
 <insert id="memberInsert" parameterType = "mv">
- insert into member(memberid,memberpwd,membername,membergender,memberbirth,memberaddr,memberphone,membereamil,memberhobby)
- values(#{memberid},#{memberpwd},#{membername},#{membergender},#{memberbirth},#{memberaddr},#{memberphone},#{membereamil},#{memberhobby})
+ insert into member(memberid,memberpwd,membername,membergender,memberbirth,memberaddr,memberphone,memberemail,memberhobby)
+ values(#{memberid},#{memberpwd},#{membername},#{membergender},#{memberbirth},#{memberaddr},#{memberphone},#{memberemail},#{memberhobby})
 </insert>
 
 
@@ -21,6 +21,9 @@ SELECT count(*) as cnt FROM member WHERE memberid = #{memberId}
 select * from member where memberid = #{memberid}
 </select>
 
+<select id="memberSelectAll" resultType = "mv">
+SELECT *FROM member  WHERE delyn = 'N' ORDER BY midx DESC
+</select>
 
 
 

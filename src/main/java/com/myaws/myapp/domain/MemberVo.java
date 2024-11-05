@@ -10,7 +10,7 @@ public class MemberVo {
 	private String memberbirth;
 	private String memberaddr;
 	private String memberphone;
-	private String membereamil;
+	private String memberemail;
 	private String memberhobby;
 	private String delyn;
 	private String writeday;
@@ -67,11 +67,11 @@ public class MemberVo {
 	public void setMemberphone(String memberphone) {
 		this.memberphone = memberphone;
 	}
-	public String getMembereamil() {
-		return membereamil;
+	public String getMemberemail() {
+		return memberemail;
 	}
-	public void setMembereamil(String membereamil) {
-		this.membereamil = membereamil;
+	public void setMemberemail(String memberemail) {
+		this.memberemail = memberemail;
 	}
 	public String getMemberhobby() {
 		return memberhobby;
