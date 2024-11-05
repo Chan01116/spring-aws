@@ -42,7 +42,7 @@ public class MemberController {
 		
 		//logger.info("memberJoin들어옴");
 		
-		logger.info("bCryptPasswordEncoder : "+bCryptPasswordEncoder);
+		//logger.info("bCryptPasswordEncoder : "+bCryptPasswordEncoder);
 				
 		//logger.info("tt값은? : "+tt.test());
 		
@@ -54,7 +54,7 @@ public class MemberController {
 	@RequestMapping(value = "memberJoinAction.aws",method = RequestMethod.POST)
 	public String memberJoinAction(MemberVo mv) {
 		
-		logger.info("memberJoinAction들어옴");
+		//logger.info("memberJoinAction들어옴");
 		
 		
 		//비밀번호 암호화 기능
@@ -63,7 +63,7 @@ public class MemberController {
 		
 		
 		int value = memberService.memberInsert(mv);
-		logger.info("value : "+value);
+		//logger.info("value : "+value);
 		
 		String path = "";
 		if(value == 1) {

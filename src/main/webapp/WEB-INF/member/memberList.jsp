@@ -7,6 +7,7 @@
 <% 
 
 //ArrayList객체를 화면까지 가져왔다
+
 ArrayList<MemberVo> alist = (ArrayList<MemberVo>)request.getAttribute("alist");
 
 //System.out.println("첫객체 아이디값은? : "+alist.get(0).getMemberid());
