@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 마이바티스용 문서 타입이다 -->
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.myaws.myapp.persistance.BoardMapper">
+
+<sql id="search">
+<if test="searchType != null and searchType.equals('writer')">
+	and writer like concat('%',#{keyword},'%')
+</if>
+<if test="searchType != null and searchType.equals('subject')">
+	and subject like concat('%',#{keyword},'%')
+</if>
+</sql>
+
+<select id="boardSelectAll" parameterType = "HashMap" resultType="bv">
+ select * from board where delyn='N' 
+ <include refid="search"/>
+ order by originbidx desc, depth asc limit #{startPageNum},#{perPageNum}
+</select>
+
+<select id="boardTotalCount" parameterType = "scri" resultType="int">
+SELECT COUNT(*) as cnt FROM board WHERE delyn = 'N'
+<include refid="search"/>
+</select>
+
+
+</mapper>
