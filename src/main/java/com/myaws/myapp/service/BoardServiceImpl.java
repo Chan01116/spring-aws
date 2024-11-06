@@ -52,7 +52,7 @@ public class BoardServiceImpl implements BoardService{
 	}	
 	
 	
-	
+	//커밋용 주석달기
 	
 
 }
