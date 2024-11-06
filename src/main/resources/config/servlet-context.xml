@@ -35,20 +35,19 @@
 	
 	<beans:bean id = "authInterceptor" class = "com.myaws.myapp.interceptor.AuthInterceptor">
 	</beans:bean>	
+	
 	<interceptors>
 		<interceptor>
-			<mapping path="member/memberLoginAction.aws"/>
+			<mapping path="/member/memberLoginAction.aws"/>
 			<beans:ref bean ="loginInterceptor"/>
 		</interceptor>
 		<interceptor>
-			<mapping path="member/memberList.aws"/>
+			<mapping path="/member/memberList.aws"/>
         	<beans:ref bean="authInterceptor"/>
 		</interceptor>
 	</interceptors>
 	
-	
-	
-	
+		
 	<context:component-scan base-package="com.myaws.myapp.controller" />
 	
 	

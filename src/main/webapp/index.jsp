@@ -9,7 +9,7 @@
 <body>
 <%
 if(session.getAttribute("midx") != null){
-	out.print(session.getAttribute("memberName")+"로그아웃");
+	out.print(session.getAttribute("memberName") + "<a href='"+request.getContextPath()+"/member/memberLogout.aws'>로그아웃</a>");
 }
 %>
 

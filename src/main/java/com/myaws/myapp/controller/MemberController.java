@@ -2,6 +2,8 @@ package com.myaws.myapp.controller;
 
 import java.util.ArrayList;
 
+import javax.servlet.http.HttpSession;
+
 import org.json.simple.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -93,7 +95,8 @@ public class MemberController {
 	public String memberLoginAction(
 			@RequestParam("memberid") String memberid, 
 			@RequestParam("memberpwd") String memberpwd,
-			RedirectAttributes rttr
+			RedirectAttributes rttr,
+			HttpSession session
 			) {		
 		
 		MemberVo mv = memberService.memberLoginCheck(memberid);
@@ -108,8 +111,17 @@ public class MemberController {
 				rttr.addAttribute("midx", mv.getMidx());
 				rttr.addAttribute("memberId", mv.getMemberid());
 				rttr.addAttribute("memberName", mv.getMembername());
-								
-				path ="redirect:/";
+				
+				//logger.info("saveUrl===>"+session.getAttribute("saveUrl"));
+				
+				if(session.getAttribute("saveUrl") != null) {
+					path ="redirect:"+session.getAttribute("saveUrl").toString();
+				}else {
+				
+					path ="redirect:/";
+				}
+				
+				
 			}else {
 				
 				//rttr.addAttribute("midx", "");
@@ -162,6 +174,18 @@ public class MemberController {
 		return "WEB-INF/member/memberList";
 	}
 	
+	
+	@RequestMapping(value = "memberLogout.aws",method = RequestMethod.GET)
+	public String memberLogout(HttpSession session) {
+		
+		//logger.info("memberLogoutµé¾î¿È");
+		session.removeAttribute("midx");
+		session.removeAttribute("memberName");
+		session.removeAttribute("memberId");
+		session.invalidate();
+				
+		return "redirect:/";
+	}
 	
 	
 	
