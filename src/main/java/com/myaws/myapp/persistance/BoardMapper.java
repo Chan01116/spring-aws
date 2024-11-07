@@ -12,5 +12,6 @@ public interface BoardMapper {
 	public int boardTotalCount(SearchCriteria scri);
 	public int boardInsert(BoardVo bv);
 	public int boardOriginbidxUpdate(int bidx);
+	public BoardVo boardSelectOne(int bidx);
 
 }

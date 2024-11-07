@@ -135,6 +135,19 @@ public class BoardController {
 		return path;
 	}
 	
+	@RequestMapping(value="boardContents.aws")
+	public String boardContents(@RequestParam("bidx") int bidx, Model model) {
+		
+		
+		BoardVo bv = boardService.boardSelectOne(bidx);
+		
+		model.addAttribute("bv", bv);
+		
+		String path ="WEB-INF/board/boardContents"; 
+		return path;
+	}
+	
+	
 	
 	
 

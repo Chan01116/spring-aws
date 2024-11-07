@@ -38,6 +38,9 @@ value(null,0,0,#{subject},#{contents},#{writer},#{password},#{midx},#{uploadedFi
 update board set originbidx = #{bidx} where bidx = #{bidx}
 </update>
 
+<select id="boardSelectOne" parameterType = "int" resultType="bv">
+SELECT * FROM board WHERE delyn = 'N' and bidx = #{bidx}
+</select>
 
 
 </mapper>

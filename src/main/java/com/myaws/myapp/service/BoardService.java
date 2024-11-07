@@ -13,5 +13,7 @@ public interface BoardService {
 	public int boardTotalCount(SearchCriteria scri);
 	
 	public int boardInsert(BoardVo bv);
+	
+	public BoardVo boardSelectOne(int bidx);
 
 }
