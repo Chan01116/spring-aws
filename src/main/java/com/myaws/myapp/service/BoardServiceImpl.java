@@ -8,6 +8,7 @@ import java.util.HashMap;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.myaws.myapp.domain.BoardVo;
 import com.myaws.myapp.domain.SearchCriteria;
@@ -49,10 +50,26 @@ public class BoardServiceImpl implements BoardService{
 				
 		int cnt = bm.boardTotalCount(scri);
 		return cnt;
+	}
+
+
+	@Override
+	@Transactional
+	public int boardInsert(BoardVo bv) {
+		
+		//System.out.println("서비스 midx값:"+bv.getMidx());
+		
+		int value = bm.boardInsert(bv);
+		int maxBidx = bv.getBidx();
+		int value2 = bm.boardOriginbidxUpdate(maxBidx);
+		
+		
+		
+		return value+value2;
 	}	
 	
 	
-	//커밋용 주석달기
+	
 	
 
 }

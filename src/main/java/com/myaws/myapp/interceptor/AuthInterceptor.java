@@ -15,7 +15,7 @@ public class AuthInterceptor extends HandlerInterceptorAdapter{ //인증 인터셉터 
 		// 가상경로에 해당하는 메소드 접근전에 가로채기
 		
 		HttpSession session = request.getSession();
-		System.out.println("인터셉터에서 midx값 : "+session);
+		//System.out.println("인터셉터에서 midx값 : "+session);
 		
 		if(session.getAttribute("midx") == null) {
 			//로그인이 안되어 있으면 이동할려고 하는 주소를 보관하고 로그인 페이지로 보낸다

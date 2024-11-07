@@ -26,5 +26,18 @@ SELECT COUNT(*) as cnt FROM board WHERE delyn = 'N'
 <include refid="search"/>
 </select>
 
+<insert id="boardInsert" parameterType="bv">
+	<selectKey keyProperty = "bidx" resultType = "int" order ="AFTER">
+	select max(bidx) as bidx from board
+	</selectKey>
+INSERT INTO board(originbidx,depth,level_,SUBJECT,contents,writer,password,midx,filename,ip)
+value(null,0,0,#{subject},#{contents},#{writer},#{password},#{midx},#{uploadedFilename},#{ip})<!-- Vo에 있는 이름과 동일해야함 -->
+</insert>
+
+<update id="boardOriginbidxUpdate" parameterType = "int">
+update board set originbidx = #{bidx} where bidx = #{bidx}
+</update>
+
+
 
 </mapper>
