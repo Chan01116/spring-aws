@@ -226,8 +226,37 @@ public class BoardController {
 		
 		return js;
 	}
+	@RequestMapping(value="boardDelete.aws")
+	public String boardDelete(@RequestParam("bidx") int bidx, Model model) {
+		
+		model.addAttribute("bidx", bidx);
+		
+		String path = "WEB-INF/board/boardDelete";
+		
+		
+		return path;
+	}
 	
 	
+	
+	
+	
+	
+	
+	@RequestMapping(value="boardDeleteAction.aws",method=RequestMethod.POST)
+	public String boardDeleteAction(@RequestParam("bidx") int bidx, @RequestParam("password") String password, HttpSession session) {
+		
+		int midx = Integer.parseInt(session.getAttribute("midx").toString());
+		
+		int value = boardService.boardDelete(bidx,midx,password);
+		
+		String path = "redirect:/board/boardList.aws";
+		if(value == 0) {
+			path = "redirect:/board/boardDelete.aws?bidx="+bidx;
+						
+		}
+		return path;
+	}
 	
 
 	

@@ -53,6 +53,12 @@ INSERT INTO board(originbidx,depth,level_,SUBJECT,contents,writer,password,midx,
 	UPDATE board SET recom = recom+1 WHERE bidx=#{bidx}
 </update>
 
+<update id="boardDelete" parameterType="HashMap">
+	update board set delyn='Y', modifyday=now() where bidx=#{bidx} and midx=#{midx} and password=#{password} 
+</update>
+
+
+
 
 
 </mapper>

@@ -99,6 +99,21 @@ public class BoardServiceImpl implements BoardService{
 	}
 
 
+	@Override
+	public int boardDelete(int bidx, int midx, String password) {
+		
+		HashMap<String,Object> hm = new HashMap<String,Object>();
+		
+		hm.put("bidx", bidx);
+		hm.put("midx", midx);
+		hm.put("password", password);
+		
+		int cnt = bm.boardDelete(hm);
+		
+		return cnt;
+	}
+
+
 
 	
 	

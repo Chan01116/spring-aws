@@ -176,6 +176,7 @@ $.boardCommentList = function(){
 
 $(document).ready(function(){
 	
+	$("#dUrl").html(getOriginalFileName("<%=bv.getFilename()%>"));
 	
 	$("#dUrl").click(function(){
 		$("#dUrl").attr("href",download());
@@ -291,12 +292,11 @@ $(document).ready(function(){
 	<hr id = "mid">
 	<%if(bv.getFilename()==null|| bv.getFilename().equals("")){}else{ %>
 	<img src="<%=request.getContextPath()%>/board/displayFile.aws?fileName=<%=bv.getFilename() %>">
-	<%} %>
 	<p>
-	<a id="dUrl" href= "" class = "fileDown">
+	<a id="dUrl" href= "#" class = "fileDown">
 	첨부파일 다운로드
 	</a></p>
-	
+	<%} %>
 	<hr id = "battom">
 	<div> <a class = "btn aBtn" id = "contentsBtn"  href = "<%=request.getContextPath() %>/board/boardModify.aws?bidx=<%=bv.getBidx()%>">수정</a>
 	<a class = "btn aBtn" id = "contentsBtn" href = "<%=request.getContextPath() %>/board/boardDelete.aws?bidx=<%=bv.getBidx()%>">삭제</a>
