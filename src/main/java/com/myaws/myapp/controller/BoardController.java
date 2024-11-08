@@ -3,6 +3,10 @@ package com.myaws.myapp.controller;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,9 +21,12 @@ import com.myaws.myapp.domain.MemberVo;
 import com.myaws.myapp.domain.PageMaker;
 import com.myaws.myapp.domain.SearchCriteria;
 import com.myaws.myapp.service.BoardService;
+import com.myaws.myapp.util.MediaUtils;
 import com.myaws.myapp.util.UploadFileUtiles;
 
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.InetAddress;
 import java.util.ArrayList;
 
@@ -27,6 +34,7 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -97,9 +105,9 @@ public class BoardController {
 	}
 	
 	@RequestMapping(value="boardWriteAction.aws")
-	public String boardWriteAction(BoardVo bv,@RequestParam("filename") MultipartFile filename, HttpServletRequest request,RedirectAttributes rttr) throws Exception { //보드Vo타입으로 바인딩해서 받는다, 멀티파트파일로 파일도 받는다
+	public String boardWriteAction(BoardVo bv,@RequestParam("attachfile") MultipartFile attachfile, HttpServletRequest request,RedirectAttributes rttr) throws Exception { //보드Vo타입으로 바인딩해서 받는다, 멀티파트파일로 파일도 받는다
 		//System.out.println("boardWriteAction");
-		MultipartFile file = filename;
+		MultipartFile file = attachfile;
 		
 		String uploadedFiledName = "";
 		
@@ -146,6 +154,65 @@ public class BoardController {
 		String path ="WEB-INF/board/boardContents"; 
 		return path;
 	}
+	
+	@RequestMapping(value="/displayFile.aws", method=RequestMethod.GET)  //가상경로에다가 겟방식으로 파일이름을 넘긴다 
+	public ResponseEntity<byte[]> displayFile(
+			@RequestParam("fileName") String fileName,
+			@RequestParam(value="down",defaultValue="0") int down
+			){
+		
+		ResponseEntity<byte[]> entity = null;  // 바이트타입 객체를 담는다
+		InputStream in = null; // 시작하는 시점의 데이터수로 = 인풋스트림
+		
+		
+		try{
+			String formatName = fileName.substring(fileName.lastIndexOf(".")+1);//확장자를 물어봄
+			MediaType mType = MediaUtils.getMediaType(formatName);//무슨타입인지 알려고
+			
+			HttpHeaders headers = new HttpHeaders();		
+			 
+			in = new FileInputStream(uploadPath+fileName); //파일을 읽음			
+			
+			if(mType != null){ // 이미지파일이면
+				
+				if (down==1) {
+					fileName = fileName.substring(fileName.indexOf("_")+1);
+					headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
+					headers.add("Content-Disposition", "attachment; filename=\""+
+							new String(fileName.getBytes("UTF-8"),"ISO-8859-1")+"\"");	
+					
+				}else {
+					headers.setContentType(mType);	
+				}
+				
+			}else{
+				
+				fileName = fileName.substring(fileName.indexOf("_")+1);
+				headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
+				headers.add("Content-Disposition", "attachment; filename=\""+
+						new String(fileName.getBytes("UTF-8"),"ISO-8859-1")+"\""); //다운로드받는 방식으로				
+			}
+			entity = new ResponseEntity<byte[]>(IOUtils.toByteArray(in),headers,HttpStatus.CREATED);
+			
+		}catch(Exception e){
+			e.printStackTrace();
+			entity = new ResponseEntity<byte[]>(HttpStatus.BAD_REQUEST);
+		}finally{
+			try {
+				in.close();
+			} catch (IOException e) {
+				
+				e.printStackTrace();
+			}
+		}
+		
+		
+		
+		
+		return entity;
+	}
+	
+	
 	
 	
 	

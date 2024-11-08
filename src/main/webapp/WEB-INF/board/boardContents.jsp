@@ -14,7 +14,7 @@
     }
     int midx = 0;
     if(session.getAttribute("midx")!=null){
-    	midx = (int)session.getAttribute("midx");
+    	midx = Integer.parseInt(session.getAttribute("midx").toString());
     	
     	
     }
@@ -28,7 +28,7 @@
 <head>
 <meta charset="UTF-8">
 <title>글내용</title>
-<link href= "../css/style2.css" rel = "stylesheet">
+<link href="/resources/css/style2.css" rel = "stylesheet">
 
 <script>
 //제이쿼리는 함수명이 앞으로
@@ -55,6 +55,42 @@
         }
     });
 } --%>
+
+function checkImageType(fileName){
+	
+	var pattern = /jpg$|gif$|png$|jpeg$/i;  //자바스크립트의 정규표현식
+	
+	
+	return fileName.match(pattern);
+}
+
+function getOriginalFileName(fileName){   //실제 원본 파일이름추출
+	
+	var idx = fileName.lastIndexOf("_")+1;
+	
+	return fileName.substr(idx);
+}
+
+function getImageLink(fileName){ //실제이미지 링크 가져오기
+	
+	var front = fileName.substr(0,12);
+	
+	var end = fileName.substr(14);
+	
+	return front+end;
+}
+
+ function download(){
+	//주소사이에s-는 빼고
+	var downloadImage = getImageLink("<%=bv.getFilename()%>"); 
+	var downLink = "<%=request.getContextPath()%>/board/displayFile.aws?fileName="+downloadImage+"&down=1";
+	
+	return downLink;
+}
+
+
+
+
 
 
 function commentDel(cidx){
@@ -139,8 +175,18 @@ $.boardCommentList = function(){
 
 
 $(document).ready(function(){
+	
+	
+	$("#dUrl").click(function(){
+		$("#dUrl").attr("href",download());
+		return;
+		
+	});
+	
+	
 	$.boardCommentList();
 	
+		
 	$("#btn").click(function(){
 		alert("추천버튼 클릭");		
 	
@@ -243,11 +289,11 @@ $(document).ready(function(){
 		
 	<hr id = "mid">
 	<hr id = "mid">
-	<%if(bv.getUploadedFilename()==null|| bv.getUploadedFilename().equals("")){}else{ %>
-	<img src="<%=request.getContextPath() %>/images/<%=bv.getUploadedFilename() %>">
+	<%if(bv.getFilename()==null|| bv.getFilename().equals("")){}else{ %>
+	<img src="<%=request.getContextPath()%>/board/displayFile.aws?fileName=<%=bv.getFilename() %>">
 	<%} %>
 	<p>
-	<a href = "<%=request.getContextPath() %>/board/boardDownload.aws?filename=<%=bv.getUploadedFilename() %>" class = "fileDown">
+	<a id="dUrl" href= "" class = "fileDown">
 	첨부파일 다운로드
 	</a></p>
 	
