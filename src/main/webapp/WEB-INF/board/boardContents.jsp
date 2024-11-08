@@ -184,11 +184,11 @@ $(document).ready(function(){
 	});
 	
 	
-	$.boardCommentList();
+	//$.boardCommentList();
 	
 		
 	$("#btn").click(function(){
-		alert("추천버튼 클릭");		
+		//alert("추천버튼 클릭");		
 	
 		$.ajax({
 			type :  "get",    //전송방식

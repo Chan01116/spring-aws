@@ -77,6 +77,28 @@ public class BoardServiceImpl implements BoardService{
 	}
 
 
+	@Override
+	public int boardViewCntUpdate(int bidx) {
+		
+		int cnt = bm.boardViewCntUpdate(bidx);
+		
+		
+		return cnt;
+	}
+
+
+	@Override
+	public int boardRecomUpdate(int bidx) {
+		
+		BoardVo bv = new BoardVo();
+		bv.setBidx(bidx);
+		
+		int cnt = bm.boardRecomUpdate(bv);
+		int recom = bv.getRecom();
+		return recom;
+	}
+
+
 
 	
 	

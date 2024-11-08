@@ -13,5 +13,7 @@ public interface BoardMapper {
 	public int boardInsert(BoardVo bv);
 	public int boardOriginbidxUpdate(int bidx);
 	public BoardVo boardSelectOne(int bidx);
+	public int boardViewCntUpdate(int bidx);
+	public int boardRecomUpdate(BoardVo bv);
 
 }

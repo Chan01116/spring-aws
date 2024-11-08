@@ -16,13 +16,13 @@
 </sql>
 
 <select id="boardSelectAll" parameterType = "HashMap" resultType="bv">
- select * from board where delyn='N' 
+	 select * from board where delyn='N' 
  <include refid="search"/>
- order by originbidx desc, depth asc limit #{startPageNum},#{perPageNum}
+	 order by originbidx desc, depth asc limit #{startPageNum},#{perPageNum}
 </select>
 
 <select id="boardTotalCount" parameterType = "scri" resultType="int">
-SELECT COUNT(*) as cnt FROM board WHERE delyn = 'N'
+	SELECT COUNT(*) as cnt FROM board WHERE delyn = 'N'
 <include refid="search"/>
 </select>
 
@@ -31,16 +31,28 @@ SELECT COUNT(*) as cnt FROM board WHERE delyn = 'N'
 	select max(bidx) as bidx from board
 	</selectKey>
 INSERT INTO board(originbidx,depth,level_,SUBJECT,contents,writer,password,midx,filename,ip)
-value(null,0,0,#{subject},#{contents},#{writer},#{password},#{midx},#{uploadedFilename},#{ip})<!-- Vo에 있는 이름과 동일해야함 -->
+	value(null,0,0,#{subject},#{contents},#{writer},#{password},#{midx},#{uploadedFilename},#{ip})<!-- Vo에 있는 이름과 동일해야함 -->
 </insert>
 
 <update id="boardOriginbidxUpdate" parameterType = "int">
-update board set originbidx = #{bidx} where bidx = #{bidx}
+	update board set originbidx = #{bidx} where bidx = #{bidx}
 </update>
 
 <select id="boardSelectOne" parameterType = "int" resultType="bv">
-SELECT * FROM board WHERE delyn = 'N' and bidx = #{bidx}
+	SELECT * FROM board WHERE delyn = 'N' and bidx = #{bidx}
 </select>
+
+<update id="boardViewCntUpdate" parameterType = "int">
+	UPDATE board SET viewcnt = viewcnt+1 WHERE bidx= #{bidx}
+</update>
+
+<update id="boardRecomUpdate" parameterType = "bv">
+	<selectKey keyProperty = "recom" resultType = "int" order ="AFTER">
+	select recom from board where bidx=#{bidx}
+	</selectKey>
+	UPDATE board SET recom = recom+1 WHERE bidx=#{bidx}
+</update>
+
 
 
 </mapper>
