@@ -9,5 +9,11 @@ import org.springframework.stereotype.Component;
 public class SampleAdvice {
 	
 	
+	public void startLog() {
+		
+		
+	}
+	
+	
 
 }
