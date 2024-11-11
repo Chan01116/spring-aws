@@ -57,7 +57,23 @@ INSERT INTO board(originbidx,depth,level_,SUBJECT,contents,writer,password,midx,
 	update board set delyn='Y', modifyday=now() where bidx=#{bidx} and midx=#{midx} and password=#{password} 
 </update>
 
+<update id="boardUpdate" parameterType="bv">
+	update board set subject = #{subject}, contents=#{contents},writer=#{writer},modifyday=now(),filename=#{uploadedFilename} where bidx=#{bidx} and password =#{password} and midx = #{midx}<!-- Vo에 있는 이름과 동일해야함 -->
+</update>
 
+
+<update id="boardReplyUpdate" parameterType = "bv">
+	update board set depth = depth+1 where originbidx = #{originbidx} and depth > #{depth}
+</update>
+
+
+<insert id="boardReplyInsert" parameterType = "bv">
+	<selectKey keyProperty = "bidx" resultType = "int" order ="AFTER">
+		select max(bidx) as bidx from board
+	</selectKey>
+		insert into board (originbidx,depth,level_,subject,contents,writer,midx,filename,password,ip)
+		values(#{originbidx},#{depth}+1,#{level_}+1,#{subject},#{contents},#{writer},#{midx},#{uploadedFilename},#{password},#{ip})
+</insert>
 
 
 

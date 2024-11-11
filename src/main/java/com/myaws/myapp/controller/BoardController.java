@@ -258,6 +258,124 @@ public class BoardController {
 		return path;
 	}
 	
+	@RequestMapping(value="boardModify.aws")
+	public String boardModify(@RequestParam("bidx") int bidx, Model model) {
+		
+		
+		
+		BoardVo bv = boardService.boardSelectOne(bidx);
+		model.addAttribute("bv", bv);
+		
+		String path ="WEB-INF/board/boardModify"; 
+		return path;
+	}
+	
+	
+	@RequestMapping(value="boardModifyAction.aws")
+	public String boardModifyAction(BoardVo bv,@RequestParam("attachfile") MultipartFile attachfile, HttpServletRequest request,RedirectAttributes rttr) throws Exception { //보드Vo타입으로 바인딩해서 받는다, 멀티파트파일로 파일도 받는다
+		//System.out.println("boardWriteAction");
+		//파일업로드를 하고 update를 하기위한 service를 만든다
+		
+		int value = 0;
+		
+		
+		MultipartFile file = attachfile;
+		String uploadedFiledName = "";
+		
+		if(!file.getOriginalFilename().equals("")) {
+			
+			uploadedFiledName = UploadFileUtiles.uploadFile(uploadPath, file.getOriginalFilename(), file.getBytes());
+			
+		}
+		String midx = request.getSession().getAttribute("midx").toString();
+		int midx_int = Integer.parseInt(midx);
+		String ip = getUserIp(request);
+		bv.setUploadedFilename(uploadedFiledName);
+		bv.setMidx(midx_int);
+		bv.setIp(ip);
+		bv.setUploadedFilename(uploadedFiledName); //filename 컬럼값으로 넣을려고
+		
+		
+		
+		
+		value = boardService.boardUpdate(bv);
+		
+				
+		
+			String path="redirect:/board/boardList.aws";
+			if(value ==0) {
+				rttr.addFlashAttribute("msg", "글이 수정되지 않았습니다");
+				path ="redirect:/board/boardModfiy.aws?bidx="+bv.getBidx();
+								
+			}else {
+				
+				path ="redirect:/board/boardContents.aws?bidx="+bv.getBidx();
+				
+			}
+		
+		 
+		return path;
+	}
+	
+	
+	@RequestMapping(value="boardReply.aws")
+	public String boardReply(@RequestParam("bidx") int bidx, Model model) {
+		
+		BoardVo bv = boardService.boardSelectOne(bidx);
+				
+		model.addAttribute("bv", bv);
+		
+		String path ="WEB-INF/board/boardReply"; 
+		return path;
+	}
+	
+	
+	@RequestMapping(value="boardReplyAction.aws")
+	public String boardReplyAction(BoardVo bv,@RequestParam("attachfile") MultipartFile attachfile, HttpServletRequest request,RedirectAttributes rttr) throws Exception { //보드Vo타입으로 바인딩해서 받는다, 멀티파트파일로 파일도 받는다
+		//System.out.println("boardWriteAction");
+		//파일업로드를 하고 update를 하기위한 service를 만든다
+		
+		int value = 0;
+		
+		
+		MultipartFile file = attachfile;
+		String uploadedFiledName = "";
+		
+		if(!file.getOriginalFilename().equals("")) {
+			
+			uploadedFiledName = UploadFileUtiles.uploadFile(uploadPath, file.getOriginalFilename(), file.getBytes());
+			
+		}
+		String midx = request.getSession().getAttribute("midx").toString();
+		int midx_int = Integer.parseInt(midx);
+		String ip = getUserIp(request);
+		bv.setUploadedFilename(uploadedFiledName); //filename 컬럼값으로 넣을려고
+		bv.setMidx(midx_int);
+		bv.setIp(ip);
+		
+				
+		
+		//value = boardService.boardRelpy(bv);
+		
+		
+				
+			int maxBidx = 0;
+			maxBidx = boardService.boardReply(bv);
+			String path="";
+			if(maxBidx != 0) {
+				
+				path ="redirect:/board/boardContents.aws?bidx="+maxBidx;
+								
+			}else {
+				rttr.addFlashAttribute("msg", "답변이 등록되지 않았습니다");
+				path ="redirect:/board/boardReply.aws?bidx="+bv.getBidx();
+				
+			}
+		
+		 
+		return path;
+	}
+	
 
 	
 	
