@@ -81,7 +81,7 @@ public class BoardController {
 	private String uploadPath;
 	
 	
-	@RequestMapping(value="boardList.aws")
+	@RequestMapping(value="boardList.aws",method=RequestMethod.GET)
 	public String boardList(SearchCriteria scri, Model model) {
 		
 		
@@ -98,7 +98,7 @@ public class BoardController {
 		return path;
 	}
 	
-	@RequestMapping(value="boardWrite.aws")
+	@RequestMapping(value="boardWrite.aws",method=RequestMethod.GET)
 	public String boardWrite() {
 		
 		
@@ -106,7 +106,7 @@ public class BoardController {
 		return path;
 	}
 	
-	@RequestMapping(value="boardWriteAction.aws")
+	@RequestMapping(value="boardWriteAction.aws",method=RequestMethod.POST)
 	public String boardWriteAction(BoardVo bv,@RequestParam("attachfile") MultipartFile attachfile, HttpServletRequest request,RedirectAttributes rttr) throws Exception { //보드Vo타입으로 바인딩해서 받는다, 멀티파트파일로 파일도 받는다
 		//System.out.println("boardWriteAction");
 		MultipartFile file = attachfile;
@@ -145,7 +145,7 @@ public class BoardController {
 		return path;
 	}
 	
-	@RequestMapping(value="boardContents.aws")
+	@RequestMapping(value="boardContents.aws",method=RequestMethod.GET)
 	public String boardContents(@RequestParam("bidx") int bidx, Model model) {
 		
 		boardService.boardViewCntUpdate(bidx);
@@ -226,7 +226,7 @@ public class BoardController {
 		
 		return js;
 	}
-	@RequestMapping(value="boardDelete.aws")
+	@RequestMapping(value="boardDelete.aws",method=RequestMethod.GET)
 	public String boardDelete(@RequestParam("bidx") int bidx, Model model) {
 		
 		model.addAttribute("bidx", bidx);
@@ -258,7 +258,7 @@ public class BoardController {
 		return path;
 	}
 	
-	@RequestMapping(value="boardModify.aws")
+	@RequestMapping(value="boardModify.aws",method=RequestMethod.GET)
 	public String boardModify(@RequestParam("bidx") int bidx, Model model) {
 		
 		
@@ -271,7 +271,7 @@ public class BoardController {
 	}
 	
 	
-	@RequestMapping(value="boardModifyAction.aws")
+	@RequestMapping(value="boardModifyAction.aws",method=RequestMethod.POST)
 	public String boardModifyAction(BoardVo bv,@RequestParam("attachfile") MultipartFile attachfile, HttpServletRequest request,RedirectAttributes rttr) throws Exception { //보드Vo타입으로 바인딩해서 받는다, 멀티파트파일로 파일도 받는다
 		//System.out.println("boardWriteAction");
 		//파일업로드를 하고 update를 하기위한 service를 만든다
@@ -318,7 +318,7 @@ public class BoardController {
 	}
 	
 	
-	@RequestMapping(value="boardReply.aws")
+	@RequestMapping(value="boardReply.aws",method=RequestMethod.GET)
 	public String boardReply(@RequestParam("bidx") int bidx, Model model) {
 		
 		BoardVo bv = boardService.boardSelectOne(bidx);
@@ -330,7 +330,7 @@ public class BoardController {
 	}
 	
 	
-	@RequestMapping(value="boardReplyAction.aws")
+	@RequestMapping(value="boardReplyAction.aws",method=RequestMethod.POST)
 	public String boardReplyAction(BoardVo bv,@RequestParam("attachfile") MultipartFile attachfile, HttpServletRequest request,RedirectAttributes rttr) throws Exception { //보드Vo타입으로 바인딩해서 받는다, 멀티파트파일로 파일도 받는다
 		//System.out.println("boardWriteAction");
 		//파일업로드를 하고 update를 하기위한 service를 만든다
