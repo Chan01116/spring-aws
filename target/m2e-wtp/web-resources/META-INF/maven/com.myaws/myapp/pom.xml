@@ -204,13 +204,14 @@
 		</dependency>
 		<!-- 파일업로드끝 -->
 		
+		<!-- AOP -->
 		<!-- AspectJ -->
 		<dependency>
 			<groupId>org.aspectj</groupId>
 			<artifactId>aspectjrt</artifactId>
 			<version>${org.aspectj-version}</version>
 		</dependency>
-		
+				
 		<!-- AspectJ -->		
 		<dependency>
 			<groupId>org.aspectj</groupId>
@@ -223,7 +224,7 @@
 	        <artifactId>spring-aop</artifactId>
 	        <version>${org.springframework-version}</version>
  		</dependency>        
-		        
+		<!-- AOP끝 -->        
 		        
 		        
 	</dependencies>

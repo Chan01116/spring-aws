@@ -126,13 +126,13 @@ $.boardCommentList = function(){
 	//alert("ddddddd");
 	$.ajax({
 		type :  "get",    //전송방식
-		url : "<%=request.getContextPath()%>/comment/commentList.aws?bidx=<%=bv.getBidx()%>",
+		url : "<%=request.getContextPath()%>/comment/<%=bv.getBidx()%>/commentList.aws",
 		dataType : "json",       // json타입은 문서에서  {"키값" : "value값","키값2":"value값2"}
 		success : function(result){   //결과가 넘어와서 성공했을 받는 영역
-		//	alert("전송성공 테스트");			
+			alert("전송성공 테스트");			
 		
 		var strTr = "";				
-		$(result).each(function(){			
+		$(result.clist).each(function(){			
 			
 			var btnn = "";
 			//현재 로그인 사람과 댓글쓴 사람의 번호가 같을때만 나타내준다
@@ -185,7 +185,7 @@ $(document).ready(function(){
 	});
 	
 	
-	//$.boardCommentList();
+	$.boardCommentList();
 	
 		
 	$("#btn").click(function(){
