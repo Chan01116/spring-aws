@@ -9,8 +9,9 @@ import com.myaws.myapp.domain.SearchCriteria;
 
 public interface CommentMapper {
 
-	public ArrayList<CommentVo> commentSelectAll(int bidx);
+	public ArrayList<CommentVo> commentSelectAll(int bidx, int block);
 	public int commentInsert(CommentVo cv);
 	public int commentDelete(CommentVo cv);
+	public int commentTotalCnt(int bidx);
 
 }

@@ -8,7 +8,11 @@
 
 
 <select id="commentSelectAll" parameterType = "int" resultType="cv">
-	select * from comment where delyn='N' and bidx = #{bidx} order by cidx desc
+	select * from comment where delyn='N' and bidx = #{0} order by cidx desc limit #{1},15
+</select>
+
+<select id="commentTotalCnt" parameterType = "int" resultType = "int">
+	select count(*) as cnt from comment where delyn='N' and bidx = #{bidx}
 </select>
 
 <insert id="commentInsert" parameterType = "cv">
@@ -20,8 +24,6 @@
 <update id="commentDelete" parameterType = "cv">
 	UPDATE COMMENT SET delyn = 'Y',cip=#{cip} WHERE cidx =#{cidx} and midx = #{midx} 
 </update>
-
-
 
 
 </mapper>

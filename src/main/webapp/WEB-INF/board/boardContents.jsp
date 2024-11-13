@@ -123,13 +123,29 @@ function commentDel(cidx){
 
 
 $.boardCommentList = function(){
+	
+	//alert("test");
+	let block = $("#block").val();
+	//alert("block : "+ block);
+	
+	
 	//alert("ddddddd");
 	$.ajax({
 		type :  "get",    //전송방식
-		url : "<%=request.getContextPath()%>/comment/<%=bv.getBidx()%>/commentList.aws",
+		url : "<%=request.getContextPath()%>/comment/<%=bv.getBidx()%>/"+block+"/commentList.aws",
 		dataType : "json",       // json타입은 문서에서  {"키값" : "value값","키값2":"value값2"}
 		success : function(result){   //결과가 넘어와서 성공했을 받는 영역
 			//alert("전송성공 테스트");			
+		
+		if(result.moreView == "N"){
+			$("#morebtn").css("display","none");  // 감춘다
+			
+		}else{
+			$("#morebtn").css("display","block"); // 보여준다
+			
+		}
+		
+		
 		
 		var strTr = "";				
 		$(result.clist).each(function(){			
@@ -247,9 +263,9 @@ $(document).ready(function(){
 				        
 			dataType : "json",	        
 			success : function(result){   //결과가 넘어와서 성공했을 받는 영역
-				alert("전송성공 테스트");	
-				var str ="("+result.value+")";			
-				alert(str);
+				//alert("전송성공 테스트");	
+				//var str ="("+result.value+")";			
+				//alert(str);
 				$.boardCommentList();
 				if(result.value == 1){
 					$("#ccontents").val("");
@@ -307,6 +323,11 @@ $(document).ready(function(){
 	<input type = "text" id = "ccontents" name ="ccontnents">
 	<button type = "button" id = "cmtBtn" >댓글쓰기</button>
 	<div id="commentListView"></div>
+	
+	<input type = "hidden" id = "block" value = "1">
+	<div id = "morebtn" style = "text-align:center; line-height:50px;">
+		<button type = "button" id = "more">더보기</button>
+	</div>
 
 
 
