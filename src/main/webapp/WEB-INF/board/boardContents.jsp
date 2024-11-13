@@ -28,7 +28,7 @@
 <head>
 <meta charset="UTF-8">
 <title>글내용</title>
-<link href="/resources/css/style2.css" rel = "stylesheet">
+<link href="<%=request.getContextPath() %>/resources/css/style2.css" rel="stylesheet">
 
 <script>
 //제이쿼리는 함수명이 앞으로
@@ -137,15 +137,7 @@ $.boardCommentList = function(){
 		success : function(result){   //결과가 넘어와서 성공했을 받는 영역
 			//alert("전송성공 테스트");			
 		
-		if(result.moreView == "N"){
-			$("#morebtn").css("display","none");  // 감춘다
-			
-		}else{
-			$("#morebtn").css("display","block"); // 보여준다
-			
-		}
-		
-		
+				
 		
 		var strTr = "";				
 		$(result.clist).each(function(){			
@@ -176,12 +168,20 @@ $.boardCommentList = function(){
 			+"<th>DEL</th>"
 			+"</tr>"+strTr+"</table>";		
 		
-		$("#commentListView").html(str);		
+		$("#commentListView").html(str);
+		
+		if (result.moreView =="N"){
+			$("#morebtn").css("display","none");  //감춘다
+		}else{
+			$("#morebtn").css("display","block"); //보여준다			
+		}	
+		let nextBlock = result.nextBlock;
+		$("#block").val(nextBlock);
 						
 		},
 		error : function(){  //결과가 실패했을때 받는 영역						
 			alert("전송실패");
-		}			
+		}				
 	});	
 }
 
@@ -266,13 +266,13 @@ $(document).ready(function(){
 				//alert("전송성공 테스트");	
 				//var str ="("+result.value+")";			
 				//alert(str);
-				$.boardCommentList();
+				
 				if(result.value == 1){
 					$("#ccontents").val("");
+					$("#block").val(1);
 					
 				}
-			
-			
+				$.boardCommentList();			
 			
 				
 			},
@@ -282,7 +282,13 @@ $(document).ready(function(){
 		});			
     });
 	
-	
+	$("#more").click(function(){
+		$.boardCommentList();
+		
+		
+		
+		
+	});
 
 	
 	
@@ -292,10 +298,11 @@ $(document).ready(function(){
 
 </script>
 </head>
-<body name = "bd">
-	<h3>글내용</h3>
-	<hr id = "top">
-	<div><th id = "contentsTitle"><%=bv.getSubject() %>(조회수:<%=bv.getViewcnt() %>)</th><br>
+<body>
+<header>
+	<h2>글내용</h2>
+</header>
+	<div><article class="detailContents"><%=bv.getSubject() %>(조회수:<%=bv.getViewcnt() %>)</article><br>
 	<input type="button" id="btn" value="추천(<%=bv.getRecom() %>)">
 	
 		</div>
@@ -319,15 +326,24 @@ $(document).ready(function(){
 	<a class = "btn aBtn" id = "contentsBtn" href = "<%=request.getContextPath() %>/board/boardReply.aws?bidx=<%=bv.getBidx()%>">답변</a>
 	<a class="btn aBtn" href="<%=request.getContextPath() %>/board/boardList.aws">목록</a></div>
 	
-	<input type = "text" id = "cwriter" name = "cwriter" value = "<%=memberName%>" readonly = "readonly" style = "width:100px;">
-	<input type = "text" id = "ccontents" name ="ccontnents">
-	<button type = "button" id = "cmtBtn" >댓글쓰기</button>
-	<div id="commentListView"></div>
+	<form name="frm">
+    <p class="commentWriter" style="width:100px;">
+        <input type="text" id="cwriter" name="cwriter" value="<%=memberName%>" readonly="readonly" style="width:100px;border:0px;">
+    </p>    
+    <input type="text" id="ccontents"  name="ccontents">
+    <button type="button" id="cmtBtn" class="replyBtn">댓글쓰기</button>
+</form>
+
+	<article class="commentContents">
+    <!-- 댓글 작성 폼 -->
+    <div id="commentListView"></div>
+</article>
 	
-	<input type = "hidden" id = "block" value = "1">
-	<div id = "morebtn" style = "text-align:center; line-height:50px;">
-		<button type = "button" id = "more">더보기</button>
-	</div>
+	
+	<div id="morebtn" style="text-align:center;line-height:50px;">
+    <button type="button" id="more">더보기    </button>    
+    <input type='text' id='block'  value='1'>            
+</div>
 
 
 

@@ -35,7 +35,7 @@ public class CommentServiceImpl implements CommentService{
 	public ArrayList<CommentVo> commentSelectAll(int bidx,int block) {
 		
 		
-		block = block-1;
+		block = block*15;
 		ArrayList<CommentVo> clist = cm.commentSelectAll(bidx,block);		
 		
 		return clist;
