@@ -55,7 +55,29 @@ public class CommentController {
 		cv.setCip(cip);
 		int value = commentService.commentInsert(cv);
 		
-		js.put("comment", value);
+		js.put("value", value);
+		
+		
+		
+				
+		return js;
+	}
+	
+	
+	@RequestMapping(value="/{cidx}/commentDeleteAction.aws")
+	public JSONObject commentDeleteAction(@PathVariable("cidx") int cidx, HttpServletRequest request, CommentVo cv) throws Exception {
+		
+		
+		int midx = Integer.parseInt(request.getSession().getAttribute("midx").toString());
+		
+		cv.setMidx(midx);
+		cv.setCidx(cidx);
+		cv.setCip(userIp.getUserIp(request));
+		int value = commentService.commentDelete(cv);
+		JSONObject js = new JSONObject();
+		
+		
+		js.put("value", value);
 		
 		
 		

@@ -100,7 +100,7 @@ function commentDel(cidx){
 	if(ans == true){
 		$.ajax({
 			type :  "get",    //전송방식
-			url : "<%=request.getContextPath()%>/comment/commentDeleteAction.aws?cidx="+cidx,
+			url : "<%=request.getContextPath()%>/comment/"+cidx+"/commentDeleteAction.aws",
 			dataType : "json",       // json타입은 문서에서  {"키값" : "value값","키값2":"value값2"}
 			success : function(result){   //결과가 넘어와서 성공했을 받는 영역
 				//alert("전송성공 테스트");				
@@ -129,7 +129,7 @@ $.boardCommentList = function(){
 		url : "<%=request.getContextPath()%>/comment/<%=bv.getBidx()%>/commentList.aws",
 		dataType : "json",       // json타입은 문서에서  {"키값" : "value값","키값2":"value값2"}
 		success : function(result){   //결과가 넘어와서 성공했을 받는 영역
-			alert("전송성공 테스트");			
+			//alert("전송성공 테스트");			
 		
 		var strTr = "";				
 		$(result.clist).each(function(){			
@@ -213,8 +213,8 @@ $(document).ready(function(){
 	$("#cmtBtn").click(function(){
 		
 		
-		let loginCheck = "<%=midx%>";
-		if(loginCheck == ""|| loginCheck == "null" || loginCheck == null|| loginCheck == 0){
+		let midx = "<%=midx%>";
+		if(midx == ""|| midx == "null" || midx == null|| midx == 0){
 			alert("로그인을 해주세요");
 			return;
 		}
@@ -243,15 +243,15 @@ $(document).ready(function(){
 			data : {"cwriter" : cwriter, 
 				    "ccontents" : ccontents, 
 				    "bidx" :"<%=bv.getBidx()%>", 
-				    "midx" : "<%=midx%>"},       // json타입은 문서에서  {"키값" : "value값","키값2":"value값2"}
+				    "midx" : "<%=midx%>"},     
 				        
 			dataType : "json",	        
 			success : function(result){   //결과가 넘어와서 성공했을 받는 영역
 				alert("전송성공 테스트");	
-				//var str ="("+result.value+")";			
-				//alert(str);
+				var str ="("+result.value+")";			
+				alert(str);
 				$.boardCommentList();
-				if(result.value ==1 ){
+				if(result.value == 1){
 					$("#ccontents").val("");
 					
 				}
