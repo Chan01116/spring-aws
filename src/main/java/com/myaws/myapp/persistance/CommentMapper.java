@@ -10,5 +10,6 @@ import com.myaws.myapp.domain.SearchCriteria;
 public interface CommentMapper {
 
 	public ArrayList<CommentVo> commentSelectAll(int bidx);
+	public int commentInsert(CommentVo cv);
 
 }

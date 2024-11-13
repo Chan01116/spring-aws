@@ -247,7 +247,7 @@ $(document).ready(function(){
 				        
 			dataType : "json",	        
 			success : function(result){   //결과가 넘어와서 성공했을 받는 영역
-				//alert("전송성공 테스트");	
+				alert("전송성공 테스트");	
 				//var str ="("+result.value+")";			
 				//alert(str);
 				$.boardCommentList();

@@ -11,6 +11,9 @@
 	select * from comment where delyn='N' and bidx = #{bidx} order by cidx desc
 </select>
 
-
+<insert id="commentInsert" parameterType = "cv">
+	insert into comment(csubject,ccontents,cwriter,bidx,midx,cip)
+	value(null,#{ccontents},#{cwriter},#{bidx},#{midx},#{cip})
+</insert>
 
 </mapper>

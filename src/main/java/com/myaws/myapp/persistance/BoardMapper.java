@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import com.myaws.myapp.domain.BoardVo;
+import com.myaws.myapp.domain.CommentVo;
 import com.myaws.myapp.domain.SearchCriteria;
 
 public interface BoardMapper {
@@ -20,5 +21,6 @@ public interface BoardMapper {
 	public int boardReply(BoardVo bv);
 	public int boardReplyUpdate(BoardVo bv);
 	public int boardReplyInsert(BoardVo bv);
+	
 
 }
