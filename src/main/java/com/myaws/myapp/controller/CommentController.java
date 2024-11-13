@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.myaws.myapp.domain.CommentVo;
 import com.myaws.myapp.service.CommentService;
+import com.myaws.myapp.util.UserIp;
 
 @RestController // 리스폰스바디가 있는 컨트롤러라는 뜻
 @RequestMapping(value="/comment")
@@ -23,6 +24,10 @@ public class CommentController {
 	
 	@Autowired
 	CommentService commentService;
+	
+	
+	@Autowired(required=false)
+	private UserIp userIp;
 	
 	
 	@RequestMapping(value="/{bidx}/commentList.aws")
@@ -46,7 +51,7 @@ public class CommentController {
 	public JSONObject commentWriteAction(CommentVo cv, HttpServletRequest request) throws Exception {
 		
 		JSONObject js = new JSONObject();
-		String cip = getUserIp(request);
+		String cip = userIp.getUserIp(request);
 		cv.setCip(cip);
 		int value = commentService.commentInsert(cv);
 		
@@ -58,55 +63,6 @@ public class CommentController {
 		return js;
 	}
 	
-	
-	
-	
-	
-	
-	
-	
-	public String getUserIp(HttpServletRequest request) throws Exception {
-			
-	        String ip = null;
-	       // HttpServletRequest request = ((ServletRequestAttributes)ServletRequestContext.currentRequestAttributes()).getRequest();
-	
-	        ip = request.getHeader("X-Forwarded-For");
-	        
-	        if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) { 
-	            ip = request.getHeader("Proxy-Client-IP"); 
-	        } 
-	        if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) { 
-	            ip = request.getHeader("WL-Proxy-Client-IP"); 
-	        } 
-	        if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) { 
-	            ip = request.getHeader("HTTP_CLIENT_IP"); 
-	        } 
-	        if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) { 
-	            ip = request.getHeader("HTTP_X_FORWARDED_FOR"); 
-	        }
-	        if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) { 
-	            ip = request.getHeader("X-Real-IP"); 
-	        }
-	        if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) { 
-	            ip = request.getHeader("X-RealIP"); 
-	        }
-	        if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) { 
-	            ip = request.getHeader("REMOTE_ADDR");
-	        }
-	        if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) { 
-	            ip = request.getRemoteAddr(); 
-	        }
-	        
-	        
-	        
-	        if(ip.equals("0:0:0:0:0:0:0:1")||ip.equals("127.0.0.1")) {
-	        	InetAddress address = InetAddress.getLocalHost();
-	        	ip = address.getHostName() + "/" + address.getHostAddress();
-	        	
-	        }
-	        		
-			return ip;
-		}
 	
 
 }
