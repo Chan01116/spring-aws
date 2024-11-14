@@ -1,5 +1,20 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%
+<%@ taglib prefix = "c" uri="http://java.sun.com/jsp/jstl/core" %>
+
+
+
+
+<c:if test="${!empty msg}">
+    <script>
+        alert('<c:out value="${msg}" />');
+    </script>
+</c:if>
+<c:if test="${not empty msg}">
+    <script>
+        alert('${msg}');
+    </script>
+</c:if>
+<%-- <%
 	String msg = "";
 	if(request.getAttribute("msg")!= null){ 
 	msg = (String)request.getAttribute("msg");
@@ -10,17 +25,13 @@
 		out.print("<script>alert('"+msg+"');</scrip>");
 		
 	}
-	
-	
-	
-	
-%>    
+%>     --%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>글쓰기</title>
-<link href="<%=request.getContextPath() %>/resources/css/style2.css" rel = "stylesheet">
+<link href="${pageContext.request.contextPath}/resources/css/style2.css" rel = "stylesheet">
 <script>
 
 
@@ -52,7 +63,7 @@ function check(){
 	  let ans = confirm("저장하시겠습니까?");  // 함수의 값을 참과 거짓 true false로 나눈다
 	  
 	  if(ans == true){
-		  fm.action ="<%= request.getContextPath()%>/board/boardWriteAction.aws";
+		  fm.action ="${pageContext.request.contextPath}/board/boardWriteAction.aws";
 		  fm.method = "post";
 		  fm.enctype = "multipart/form-data";  // 데이터도 올려야 하니까
 		  fm.submit();

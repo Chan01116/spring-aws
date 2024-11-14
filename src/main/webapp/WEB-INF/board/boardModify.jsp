@@ -1,10 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="com.myaws.myapp.domain.*" %>
+<%@ taglib prefix = "c" uri="http://java.sun.com/jsp/jstl/core" %>
     
-    <%
+    <%-- <%
     BoardVo bv = (BoardVo)request.getAttribute("bv");  // 강제형변환 양쪽형을 맞춰준다
     
-    %>
+    %> --%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -52,19 +53,19 @@ function check() {
 </header>
 
 <form name="frm">
-<input type = "hidden" name ="bidx" value ="<%=bv.getBidx()%>">
+<input type = "hidden" name ="bidx" value ="${bv.bidx}">
 	<table class="writeTable">
 		<tr>
 			<th>제목</th>
-			<td><input type="text" name="subject" value="<%=bv.getSubject()%>"></td>
+			<td><input type="text" name="subject" value="${bv.subject}"></td>
 		</tr>
 		<tr>
 			<th>내용</th>
-			<td><textarea name="contents" rows="6"><%=bv.getContents()%></textarea></td>
+			<td><textarea name="contents" rows="6">${bv.contents}</textarea></td>
 		</tr>
 		<tr>
 			<th>작성자</th>
-			<td><input type="text" name="writer" value= "<%=bv.getWriter()%>"></td>
+			<td><input type="text" name="writer" value= "${bv.writer}"></td>
 		</tr>
 		<tr>
 			<th>비밀번호</th>

@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix = "c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<% String bidx = request.getAttribute("bidx").toString();%>
+<%-- <% String bidx = request.getAttribute("bidx").toString();%> --%>
 
 <!DOCTYPE html>
 <html>
@@ -40,7 +41,7 @@ function check() {
 </header>
 
 <form name="frm">
-<input type="hidden" name="bidx" value="<%=bidx %>">
+<input type="hidden" name="bidx" value="${bidx}">
 	<table class="writeTable">
 		<tr>
 			<th>비밀번호</th>

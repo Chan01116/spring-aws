@@ -17,7 +17,7 @@
 <head>
 <meta charset="UTF-8">
 <title>글목록</title>
-<link href="<%=request.getContextPath() %>/resources/css/style2.css" rel="stylesheet">
+<link href="${pageContext.request.contextPath}/resources/css/style2.css" rel="stylesheet">
 </head>
 <body>
 <header>
